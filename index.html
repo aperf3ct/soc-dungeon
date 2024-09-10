@@ -1,0 +1,380 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+    <script
+      src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+  </head>
+  <body>
+    <a-scene
+      light="defaultLightsEnabled: false"
+      physics="gravity: -9.8;restitution: 0.1"
+      inspector-plugin-recast
+    >
+      <!-- ASSETS -->
+      <a-assets>
+        <img
+          id="wall"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/brick-wall-background-texture.jpg?v=1724285553597"
+        />
+
+        <img
+          id="floor"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/Game%20textures.jpeg?v=1724286717770"
+        />
+
+        <img
+          id="flame"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/flame-png-4858.png?v=1723414007487"
+        />
+
+        <a-asset-item
+          id="table"
+          src="https://cdn.glitch.me/6110f62e-943c-4634-a02e-fc350b9c7a43/wooden_table_game_ready_asset.glb?v=1722471694630"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="walltorch"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/torch.glb?v=1723770492999"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="statue"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/elven_guard_statue.glb?v=1725311193755"
+        ></a-asset-item>
+
+        <a-asset-item
+          id="ghoul"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/ghoul.glb?v=1725832410644"
+        ></a-asset-item>
+
+        <audio
+          id="ambientmusic"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/creepy_dungeon.wav?v=1725832060137"
+          preload="auto"
+        ></audio>
+
+        <audio
+          id="ghoulsound"
+          src="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/demonic%20drone.wav?v=1725916133604"
+          preload="auto"
+        ></audio>
+      </a-assets>
+
+      <!-- CAMERA -->
+      <a-entity
+        id="rig"
+        position="0 0 0 "
+        rotation="0 180 0"
+        movement-controls="constrainToNavMesh: true; speed: 0.25;"
+      >
+        <a-entity
+          camera=""
+          id="camera"
+          position="0 1.5 3"
+          look-controls=""
+          extended-wasd-controls="flyEnabled: true; turnEnabled: true; lookEnabled: true;
+                                  maxLookAngle: 60;"
+          data-aframe-inspector-original-camera=""
+        >
+        </a-entity>
+      </a-entity>
+
+      <!-- Ambient Sources -->
+      <a-entity light="type: ambient; color: #CCC; intensity: 0.125"></a-entity>
+
+      <a-sound
+        src="#ambientmusic"
+        autoplay="true"
+        loop="true"
+        positional="false"
+        volume="1"
+      ></a-sound>
+
+      <!-- HALLWAY -->
+
+      <!-- TABLE -->
+      <a-entity
+        gltf-model="#table"
+        scale="1.2 1.2 1.2"
+        rotation="0 90 0"
+        position="0 0 4.5"
+      >
+        <!-- CANDLES -->
+        <a-cylinder
+          id="tallcandle"
+          radius="0.5"
+          position="-0.2 0.82605 0.72295"
+          material="color: #a07a27"
+          geometry="radius: 0.03; height: 0.2"
+        >
+          <a-entity
+            geometry="primitive: plane"
+            material="src: #flame; transparent: true"
+            rotation="0 100 0"
+            scale="0.10943388653678915 0.2086729363153491 0.0001"
+            position="-0.0253 0.14 0.00797"
+            animation="property: scale; dir: alternate; from: 0.11199 0.21674 0; to: 0.075 0.1 0; loop: true; dur: 2000"
+          ></a-entity>
+          <a-entity
+            light="type: point; distance: 25; decay: 10; color: #de873f"
+            position="0 0.19 0"
+          ></a-entity>
+        </a-cylinder>
+        <a-cylinder
+          id="shortcandle"
+          radius="0.5"
+          position="-0.1 0.808 0.78814"
+          material="color: #a07a27"
+          geometry="radius: 0.02; height: 0.15"
+        >
+          <a-entity
+            geometry="primitive: plane"
+            material="src: #flame; transparent: true"
+            rotation="0 130.59484320196367 0"
+            scale="0.10943388653678915 0.2086729363153491 0.0001"
+            position="-0.00547 0.11062 -0.00069"
+            animation="property: scale; dir: alternate; from: 0.11199 0.21674 0; to: 0.075 0.1 0; loop: true; dur: 2000"
+          ></a-entity>
+          <a-entity
+            light="type: point; distance: 25; decay: 10; color: #de873f"
+            position="0.03272 0.11396 -0.0174"
+          ></a-entity>
+        </a-cylinder>
+        <a-cylinder
+          id="rightcandle"
+          radius="0.5"
+          position="-0.01148 0.88408 -0.76294"
+          material="color: #a07a27"
+          geometry="radius: 0.03; height: 0.3"
+        >
+          <a-entity
+            geometry="primitive: plane"
+            material="src: #flame; transparent: true"
+            rotation="0 58.15349733239316 0"
+            scale="0.10943388653678915 0.2086729363153491 0.0001"
+            position="0.01307 0.18414 0.0048"
+            animation="property: scale; dir: alternate; from: 0.11199 0.21674 0; to: 0.075 0.1 0; loop: true; dur: 2000"
+          ></a-entity>
+          <a-entity
+            light="type: point; intensity: 1.25; distance: 25; decay: 10; color: #de873f"
+            position="0.04856 0.2063 -0.00358"
+          ></a-entity>
+        </a-cylinder>
+        <!-- MAP -->
+        <a-entity
+          id="map"
+          gltf-model="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/old_map_3d_model.glb?v=1722998148372"
+          scale="0.25 0.25 0.25"
+          position="-0.02978 0.75 0"
+          rotation="0 90 0"
+        ></a-entity>
+      </a-entity>
+      <!-- /TABLE -->
+
+      <a-entity
+        id="deadmouse"
+        gltf-model="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/dead_mouse.glb?v=1723604620817"
+        scale="0.9 0.9 0.9"
+        rotation="0 -60 0"
+        position="1.15047 0 -7"
+      ></a-entity>
+
+      <a-entity
+        id="lefthallwaytorch"
+        gltf-model="#walltorch"
+        scale="0.01 0.01 0.01"
+        rotation="0 90 0"
+        position="-2 1.5 -7"
+      >
+      </a-entity>
+
+      <a-entity
+        id="righthallwaytorch"
+        gltf-model="#walltorch"
+        scale="0.01 0.01 0.01"
+        rotation="0 -90 0"
+        position="2 1.5 -7"
+      >
+      </a-entity>
+
+      <a-entity
+        id="hallwaylight"
+        light="color: #de873f; decay: 2; distance: 15; type: point; intensity: 1.5"
+        position="0 1.8 -7"
+      ></a-entity>
+
+      <!-- /HALLWAY -->
+
+      <a-entity
+        id="spotlight"
+        light="type: spot; angle: 36.22; color: #d2a65b; decay: 0; penumbra: 0.5; distance: 6.32; intensity: 3"
+        rotation="-90 0 0"
+        position="0.00853 5.501 -19"
+      ></a-entity>
+
+      <!-- DAIS -->
+      <a-cylinder
+        id="dais"
+        geometry="height: 0.5; radius: 5"
+        material="color: grey"
+        position="0 0 -19"
+      >
+      </a-cylinder>
+
+      <a-entity
+        gltf-model="#ghoul"
+        scale="0.015 0.015 0.015"
+        position="0 0 -19"
+        animation-mixer="clip:Ghoul"
+        sound="src: #ghoulsound; autoplay: true; loop: true; volume: 1.5;"
+      >
+      </a-entity>
+
+      <!-- STATUE -->
+      <a-entity
+        id="leftstatue"
+        gltf-model="#statue"
+        scale="2 2 2"
+        position="-9 0 -19"
+        rotation="0 90 0"
+      ></a-entity>
+      <a-entity
+        id="rightstatue"
+        gltf-model="#statue"
+        scale="2 2 2"
+        position="9 0 -19"
+        rotation="0 -90 0"
+      ></a-entity>
+
+      <!-- PILLARS -->
+      <a-box
+        material="color: grey"
+        geometry="height: 7.99; width: 0.75; depth: 0.8"
+        position="4.5 2.5 -19"
+      >
+        <a-entity
+          id="rightpillartorch"
+          gltf-model="#walltorch"
+          scale="0.01 0.01 0.01"
+          rotation="0 -90 0"
+          position="-0.4 0.5 0"
+        >
+        </a-entity>
+        <a-entity
+          light="color: #de873f; decay: 1.5; distance: 15; type: point; intensity: 0.8"
+          position="-1.15246 1.12928 0"
+        ></a-entity>
+      </a-box>
+      <a-box
+        material="color: grey"
+        geometry="depth: 0.8; height: 6; width: 0.75"
+        position="0 3 -23.5"
+      ></a-box>
+      <a-box
+        material="color: grey"
+        geometry="depth: 0.8; height: 6; width: 0.75"
+        position="-4.5 3 -19"
+      >
+        <a-entity
+          id="leftpillartorch"
+          gltf-model="https://cdn.glitch.global/62cb6dde-c4cd-4cbc-b326-1145016a1655/torch.glb?v=1723770492999"
+          scale="0.01 0.01 0.01"
+          rotation="0 90 0"
+          position="0.4 0 0"
+        >
+        </a-entity>
+        <a-entity
+          light="color: #de873f; decay: 1.5; distance: 15; type: point; intensity: 0.8"
+          position="0.80592 0.41368 0"
+        ></a-entity>
+      </a-box>
+      <!-- CEILING -->
+      <a-entity
+        id="hallwayceiling"
+        geometry="primitive: plane; height: 15; width: 4"
+        rotation="90 0 0"
+        material="repeat: 1 4; roughness: 1; src: https://cdn.glitch.global/6110f62e-943c-4634-a02e-fc350b9c7a43/square_stone.jpg?v=1722287969550"
+        position="0.00415 3.2 -2"
+      >
+      </a-entity>
+
+      <a-entity
+        id="innerring"
+        geometry="primitive: ring; radiusInner: 2; radiusOuter: 1.5; thetaLength: 365"
+        rotation="-90 0 0"
+        material="side: double; color: #ff0000"
+        position="0 5 -19"
+      ></a-entity>
+      <a-entity
+        geometry="primitive: cylinder; thetaLength: 365; height: 1.96; openEnded: true; radius: 1.5"
+        rotation=""
+        material="side: double; color: #000000"
+        position="0 5.71759 -19"
+      ></a-entity>
+      <a-entity
+        id="outerring"
+        geometry="primitive: ring; radiusInner: 10; radiusOuter: 1.61; thetaLength: 365"
+        rotation="-90 0 0"
+        material="color: #ffffff; flatShading: true; repeat: 2 1; src: #floor; roughness: 1"
+        position="0 4.9 -19"
+      ></a-entity>
+
+      <!-- FLOOR PLANES -->
+      <a-entity
+        id="hallwayfloor"
+        geometry="primitive: plane; height: 1.5"
+        rotation="-90 0 0"
+        position="0 -0.01 -2.00174"
+        scale="4 10.01442 0.00001"
+        material="repeat: 1 3; src: #floor; roughness: 1"
+      ></a-entity>
+
+      <a-entity
+        id="circularfloor"
+        geometry="primitive: circle; radius: 10"
+        rotation="-90 0 0"
+        position="0 -0.1 -19"
+        material="color: #ffffff; repeat: 5 3; src: #floor; roughness: 1"
+      ></a-entity>
+
+      <!-- WALL PLANES -->
+      <a-entity
+        id="righthallwall"
+        geometry="primitive: plane; width: 15; height: 3.5; segmentsHeight: 2; segmentsWidth: 2"
+        material="src: #wall; repeat: 4 1; roughness: 1"
+        position="2 1.5 -2"
+        rotation="0 -90 0"
+      ></a-entity>
+
+      <a-plane
+        id="backhallwall"
+        src="#wall"
+        rotation="0 -180 0"
+        position="0 1.5 5.5"
+        scale="4 3.5 3"
+        material=""
+        geometry=""
+      ></a-plane>
+
+      <a-entity
+        id="lefthallwall"
+        geometry="primitive: plane; width: 15; height: 3.5; segmentsHeight: 2; segmentsWidth: 2"
+        material="src: #wall; repeat: 5 1; side: back; roughness: 1"
+        position="-2 1.5 -2"
+        rotation="0 -90 0"
+      ></a-entity>
+
+      <a-curvedimage
+        id="circularwall"
+        material="shader: standard; side: back; repeat: 15 1; src: #wall"
+        geometry="height: 6; radius: 10; thetaLength: 337"
+        position="0 2 -19"
+        rotation="0 11.5 0"
+      ></a-curvedimage>
+    </a-scene>
+  </body>
+</html>
